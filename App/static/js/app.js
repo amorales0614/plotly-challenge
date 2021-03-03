@@ -2,7 +2,7 @@
 function getData(id){
 
 	// pull in data from the json file
-	d3.json("././data/samples.json").then((data) => {
+	d3.json("../../data/samples.json").then((data) => {
 		console.log(data)
 
 		var washFreq = data.metadata.map(d => d.wreq)
@@ -27,6 +27,30 @@ function getData(id){
 		console.log(`Sample Values: ${top10}`)
 		console.log(`Id Values: ${idValues}`)
 
-		
+		// creating trace variables for plot
+		var trace = {
+			x: top10,
+			y: idOTU,
+			text: labels,
+			type: "bar",
+			orientation: "h",
+		};
+
+		var data = [trace];
+
+		var layout = {
+			title: "Top 10 OTU",
+			yaxis: {
+				tickmode: "linear",
+			},
+			margin: {
+				l: 100,
+				r: 100,
+				t: 30,
+				b: 20
+			}
+		};
+
+		Plotly.newPlot("bar", data, layout);
 	});
 };
