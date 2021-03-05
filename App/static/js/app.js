@@ -2,11 +2,11 @@
 function getData(id){
 
 	// pull in data from the json file
-	d3.json("../../data/samples.json").then((data) => {
-		console.log(data)
+	d3.json("././data/samples.json").then((data) => { var metadata = data.metadata;
+		console.log(metadata);
 
-		var washFreq = data.metadata.map(d => d.wreq)
-		console.log(`Washing Freq: ${washFreq}`)
+		var washFreq = data.metadata.map(d => d.wreq);
+		console.log(`Washing Freq: ${washFreq}`);
 
 		// filter values using id
 		var sample = data.sample.filter(s => s.id.toString() === id)[0];
@@ -52,5 +52,37 @@ function getData(id){
 		};
 
 		Plotly.newPlot("bar", data, layout);
+
+		var trace1 = {
+			x: sample.otu_ids,
+			y: sample.sample_values,
+			mode: "markers",
+			marker: {
+				size: sample.sample_values,
+				color: sample.otu_ids
+			},
+			text: sample.otu_labels
+		};
+
+		var layout = {
+			xaxis:{title: "OTU ID"},
+			height: 600,
+			width: 1300
+		};
+
+		var data1 = [trace1];
+
+		Plotly.newPlot("bubble", data1, layout);
+
+		var tracePie = {
+			labels: idOTU,
+			values: top10,
+			type: "pie",
+		};
+
+		var data = [tracePie]
+
+		Plotly.newPlot("pie", data)
 	});
 };
+
