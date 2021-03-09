@@ -1,5 +1,5 @@
 // creating first function to get the data
-function getData(id){
+function getPlots(id){
 
 	// pull in data from the json file
 	d3.json("././data/samples.json").then((data) => { var metadata = data.metadata;
@@ -84,5 +84,13 @@ function getData(id){
 
 		Plotly.newPlot("pie", data)
 	});
+};
+
+// creating new function to get the data
+function getData(id) {
+
+	// pulling in from json
+	d3.json("././data/samples.json").then((data) => { var metadata = data.metadata;
+		console.log(metadata);
 };
 
