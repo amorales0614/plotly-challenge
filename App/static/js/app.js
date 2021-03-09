@@ -112,7 +112,28 @@ function getData(id) {
 // create new function for new event
 function optionChange(id) {
 	getPlots(id);
-	getInfo(id);
+	getData(id);
 };
 
 // new function for data rendering
+function init() {
+
+	// select dropdown menu
+	var dropdown = d3.select("#selDataset");
+
+	// reading the data
+	d3.json("././data/samples.json").then((data) => {
+		console.log(data);
+
+		// get the id data for the dropdown
+		data.names.forEach(function(name) {
+			dropdown.append("option").text(name).property("value");
+		});
+
+		// calling the functions
+		getPlots(data.names[0]);
+		getData(data.names[0]);
+	});
+};
+
+init();
