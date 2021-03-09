@@ -92,5 +92,27 @@ function getData(id) {
 	// pulling in from json
 	d3.json("././data/samples.json").then((data) => { var metadata = data.metadata;
 		console.log(metadata);
+
+		// filter by id
+		var result = metadata.filter(meta => meta.id.toString() === id)[0];
+
+		// selecting demographic panel
+		var demoInfo = d3.select("#sample-metadata");
+
+		// empty the panel before each new ID
+		demoInfo.html("");
+
+		// grab the data for the id and add the info to the panel
+		Object.entries(result).forEach((key) => {
+				demoInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");
+		});
+	});
 };
 
+// create new function for new event
+function optionChange(id) {
+	getPlots(id);
+	getInfo(id);
+};
+
+// new function for data rendering
