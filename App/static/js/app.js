@@ -2,16 +2,17 @@
 function getPlots(id){
 
 	// pull in data from the json file
-	d3.json("././data/samples.json").then((data) => { var metadata = data.metadata;
-		console.log(metadata);
-
-		var washFreq = data.metadata.map(d => d.wreq);
-		console.log(`Washing Freq: ${washFreq}`);
+	d3.json("././data/samples.json").then((data) => { 
+		var metadata = data.metadata;
+		//console.log(metadata);
 
 		// filter values using id
-		var sample = data.sample.filter(s => s.id.toString() === id)[0];
+		var sample = metadata.filter(s => s.id.toString() === id)[0];
 
 		console.log(sample);
+
+		// var washFreq = metadata.wfreq;
+		// console.log(`Washing Freq: ${washFreq}`);
 
 		// getting top 10 sample for plot
 		var top10 = sample.sample_values.slice(0,10).reverse();
