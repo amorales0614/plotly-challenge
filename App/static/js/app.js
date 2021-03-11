@@ -3,21 +3,18 @@ function getPlots(id){
 
 	// pull in data from the json file
 	d3.json("././data/samples.json").then((data) => { 
-		var metadata = data.metadata;
+		var sampleData = data.samples;
 		//console.log(metadata);
 
 		// filter values using id
-		var sample = metadata.filter(s => s.id.toString() === id)[0];
+		var sample = sampleData.filter(s => s.id.toString() === id)[0];
 
 		console.log(sample);
-
-		// var washFreq = metadata.wfreq;
-		// console.log(`Washing Freq: ${washFreq}`);
 
 		// getting top 10 sample for plot
 		var top10 = sample.sample_values.slice(0,10).reverse();
 
-		var idValues = (samples.otu_ids.slice(0, 10)).reverse();
+		var idValues = (sample.otu_ids.slice(0, 10)).reverse();
 
 		var idOTU = idValues.map(d => "OTU " + d)
 
@@ -74,16 +71,6 @@ function getPlots(id){
 		var data1 = [trace1];
 
 		Plotly.newPlot("bubble", data1, layout);
-
-		var tracePie = {
-			labels: idOTU,
-			values: top10,
-			type: "pie",
-		};
-
-		var data = [tracePie]
-
-		Plotly.newPlot("pie", data)
 	});
 };
 
