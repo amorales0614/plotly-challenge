@@ -14,7 +14,7 @@ function getPlots(id){
 		// getting top 10 sample for plot
 		var top10 = sample.sample_values.slice(0,10).reverse();
 
-		var idValues = (sample.otu_ids.slice(0, 10)).reverse();
+		var idValues = sample.otu_ids.slice(0,10).reverse();
 
 		var idOTU = idValues.map(d => "OTU " + d)
 
